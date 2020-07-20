@@ -1,0 +1,17 @@
+<p>users works!</p>
+<br/>
+First name:<input (keyup)="inputYourName($event)" (keyup.enter)="onEnter()"/>
+
+<br/>
+Last name:<input #lastname (keyup)="inputLastname(lastname.value)" (keyup.enter)="onEnter()"/>
+
+<br/>
+<button (click)="onClickSave()">save</button>
+<br/>
+Count = {{count}}
+<br/>
+<ul *ngIf="show">
+    <li *ngFor="let user of users;index as i" #status (click)="status.value=onClickuser(i);" [ngClass]="status.value ? 'strikethrough' : ''">
+            {{user}}
+    </li>
+</ul>

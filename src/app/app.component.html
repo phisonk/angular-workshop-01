@@ -1,15 +1,3 @@
+<app-users></app-users>
 <h1>{{title}}</h1>
 Score = {{score}}
-<ul *ngIf="show">
-  <li *ngFor="let color of colors">{{color}}</li>
-</ul>
-
-First name:<input (keyup)="inputYourName($event)" (keyup.enter)="onEnter()"/>
-{{ firstName }}
-<br/>
-Last name:<input #lastname (keyup)="inputLastname(lastname.value)" (keyup.enter)="onEnter()"/>
-{{ lastName }}
-<br/>
-<button (click)="onClickSave()">save</button>
-<br/>
-Result = {{name}}

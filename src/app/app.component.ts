@@ -8,28 +8,5 @@ import { Component } from '@angular/core';
 export class AppComponent {
   title = 'phisonk';
   score = 100;
-  show = true;
-  firstName = '';
-  lastName = '';
-  name = '';
-  colors = ['Red','Green','Blue']; //Array
-  inputYourName(event : any): void{
-    this.firstName = event.target.value;
-  }
-  inputLastname(input: string):void{
-    this.lastName = input;
-  }
-  onClickSave(): void{
-    this.name = this.firstName + ' ' + this.lastName;
-    this.name = `${this.firstName} ${this.lastName}`;
-  }
-  onEnter(): void{
-    if(this.firstName != '' && this.lastName != ''){
-      this.onClickSave();
-    }
-    else{
-      alert("Please Fill All Input Box");
-    }
-  }
   
 }
