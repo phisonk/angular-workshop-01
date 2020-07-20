@@ -19,10 +19,11 @@ export class AppComponent {
   inputLastname(input: string):void{
     this.lastName = input;
   }
-  onClickSave(){
+  onClickSave(): void{
     this.name = this.firstName + ' ' + this.lastName;
+    this.name = `${this.firstName} ${this.lastName}`;
   }
-  onEnter(){
+  onEnter(): void{
     if(this.firstName != '' && this.lastName != ''){
       this.onClickSave();
     }
