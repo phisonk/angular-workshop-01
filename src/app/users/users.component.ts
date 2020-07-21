@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { FormGroup, FormBuilder, Validators } from '@angular/forms'; 
 
 @Component({
   selector: 'app-users',
@@ -7,24 +8,24 @@ import { Component, OnInit } from '@angular/core';
 })
 export class UsersComponent implements OnInit {
 
-  constructor() { }
+  loginForm: FormGroup; 
+  submitted = false;
+  constructor(private formBuilder: FormBuilder) { }
 
   ngOnInit(): void {
-    
+    this.loginForm = this.formBuilder.group({
+      firstName: ['',Validators.required],
+      lastName: ['',Validators.required],
+      }); 
   }
   show = true;
-  firstName = '';
-  lastName = '';
   name = '';
   count = '';
   users = []; //Array
   usersChecked = [];
-  inputYourName(event : any): void{
-    this.firstName = event.target.value;
-  }
-  inputLastname(input: string):void{
-    this.lastName = input;
-  }
+  get f() {
+    return this.loginForm.controls;
+   } 
   checkCount(){
     this.count = `${this.usersChecked.length}/${this.users.length}`;
   }
@@ -41,25 +42,13 @@ export class UsersComponent implements OnInit {
 
   }
   onClickSave(): void{
-    if(this.firstName != '' && this.firstName.indexOf(' ') == -1){
-      this.name = this.firstName + ' ' + this.lastName;
-      this.name = `${this.firstName} ${this.lastName}`;
-
-      //Append name to list
-      this.users.push(this.name);
-      this.checkCount();
+    this.submitted = true;
+    if(this.loginForm.invalid){
+      return;
     }
-    else{
-      alert("Please Fill First Name");
-    }
-  }
-  onEnter(): void{
-    if(this.firstName != '' && this.firstName.indexOf(' ') == -1){
-      this.onClickSave();
-    }
-    else{
-      alert("Please Fill First Name");
-    }
+    this.name = `${this.f.firstName.value} ${this.f.lastName.value}`;
+    this.users.push(this.name);
+    this.checkCount();
   }
   
 

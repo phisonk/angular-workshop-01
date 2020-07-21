@@ -1,12 +1,29 @@
 <p>users works!</p>
 <br/>
-First name:<input (keyup)="inputYourName($event)" (keyup.enter)="onEnter()"/>
+<form [formGroup]="loginForm" (ngSubmit)="onClickSave()">
+    First name:
+    <input formControlName="firstName"/>
+    <div *ngIf="submitted && loginForm.controls.firstName.errors"
+    class="alert alert-danger" style="color: red;">
 
-<br/>
-Last name:<input #lastname (keyup)="inputLastname(lastname.value)" (keyup.enter)="onEnter()"/>
+        <div *ngIf="loginForm.controls.firstName.errors.required">
+            FirstName is required.
+        </div>
+    </div>
+    <br/>
+    Last name:
+    <input formControlName="lastName"/>
+    <div *ngIf="submitted && loginForm.controls.lastName.errors"
+    class="alert alert-danger" style="color: red;">
 
-<br/>
-<button (click)="onClickSave()">save</button>
+        <div *ngIf="loginForm.controls.lastName.errors.required">
+            LastName is required.
+        </div>
+    </div>
+    <br/>
+    <button>Save</button>
+    <br/>
+</form>
 <br/>
 Count = {{count}}
 <br/>
