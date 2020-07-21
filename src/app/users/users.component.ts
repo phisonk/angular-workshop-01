@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms'; 
+import { User } from 'src/app/models/user';
 
+type Users = User[];
 @Component({
   selector: 'app-users',
   templateUrl: './users.component.html',
@@ -21,24 +23,28 @@ export class UsersComponent implements OnInit {
   show = true;
   name = '';
   count = '';
-  users = []; //Array
+  //users = []; //Array
+  users:Users = [];
   usersChecked = [];
   get f() {
     return this.loginForm.controls;
    } 
   checkCount(){
-    this.count = `${this.usersChecked.length}/${this.users.length}`;
+    this.count = `${this.users.filter((u) => u.status).length}/${this.users.length}`;
   }
-  onClickuser(input:number):boolean{
-    if(this.usersChecked.indexOf(input)==-1){
-      this.usersChecked.push(input);
-      this.checkCount();
-      return true
-    }else{
-      this.usersChecked.splice(this.usersChecked.indexOf(input),1);
-      this.checkCount();
-      return false
-    }
+  onClickuser(index:number):void{
+    this.users[index].status = !this.users[index].status;
+    this.checkCount();
+    return;
+    // if(this.usersChecked.indexOf(input)==-1){
+    //   this.usersChecked.push(input);
+    //   this.checkCount();
+    //   return true
+    // }else{
+    //   this.usersChecked.splice(this.usersChecked.indexOf(input),1);
+    //   this.checkCount();
+    //   return false
+    // }
 
   }
   onClickSave(): void{
@@ -47,7 +53,9 @@ export class UsersComponent implements OnInit {
       return;
     }
     this.name = `${this.f.firstName.value} ${this.f.lastName.value}`;
-    this.users.push(this.name);
+    const user = new User(this.name,false);
+    //this.users.push(this.name);
+    this.users.push(user);
     this.checkCount();
   }
   

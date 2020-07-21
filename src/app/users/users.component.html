@@ -28,7 +28,9 @@
 Count = {{count}}
 <br/>
 <ul *ngIf="show">
-    <li *ngFor="let user of users;index as i" #status (click)="status.value=onClickuser(i);" [ngClass]="status.value ? 'strikethrough' : ''">
-            {{user}}
+    <li *ngFor="let user of users;index as i"
+     (click)="onClickuser(i);" 
+     [ngClass]="user.status ? 'strikethrough' : ''">
+            {{user.name}}
     </li>
 </ul>
